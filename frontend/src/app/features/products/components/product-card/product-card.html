@@ -1,0 +1,71 @@
+<article class="group min-w-0">
+  <div class="relative aspect-[3/4] overflow-hidden bg-[#e8e5df]">
+    <a [routerLink]="['/produtos', product().slug]" [attr.aria-label]="'Ver ' + product().name">
+      <img
+        [src]="product().image"
+        [alt]="product().name"
+        class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+        loading="lazy"
+        width="700"
+        height="933"
+      />
+    </a>
+    @if (product().badge) {
+      <span
+        class="absolute top-3 left-3 bg-paper px-2.5 py-1.5 text-[8px] font-semibold tracking-wider sm:text-[9px]"
+        >{{ product().badge }}</span
+      >
+    }
+    <button
+      class="absolute right-3 bottom-3 flex size-9 items-center justify-center rounded-full bg-paper/95 transition-colors hover:bg-white"
+      [class.text-accent]="favorites.has(product().id)"
+      [attr.aria-label]="
+        (favorites.has(product().id) ? 'Remover dos favoritos: ' : 'Favoritar: ') + product().name
+      "
+      [attr.aria-pressed]="favorites.has(product().id)"
+      (click)="toggleFavorite($event)"
+    >
+      <app-icon name="heart" />
+    </button>
+  </div>
+  <div class="pt-4">
+    <div class="mb-2 flex gap-1.5" aria-hidden="true">
+      @for (color of product().colors; track color) {
+        <span
+          class="size-2.5 rounded-full border border-black/10"
+          [style.background-color]="color"
+        ></span>
+      }
+    </div>
+    <a [routerLink]="['/produtos', product().slug]"
+      ><h3 class="text-xs font-semibold transition-colors hover:text-accent sm:text-sm">
+        {{ product().name }}
+      </h3></a
+    >
+    <p class="mt-1 text-[10px] text-muted sm:text-xs">{{ product().description }}</p>
+    <p class="mt-3 text-xs font-semibold sm:text-sm">
+      {{ product().price | currency: 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}
+    </p>
+    <div class="mt-4 flex flex-wrap gap-2">
+      @if (product().sizes.length > 1) {
+        <select
+          class="min-w-0 flex-1 border border-ink/20 bg-transparent p-2.5 text-[10px]"
+          [attr.aria-label]="'Tamanho de ' + product().name"
+          [value]="selectedSize()"
+          (change)="selectedSize.set($any($event.target).value)"
+        >
+          <option value="" disabled>Tamanho</option>
+          @for (size of product().sizes; track size) {
+            <option [value]="size">{{ size }}</option>
+          }
+        </select>
+      }
+      <button
+        class="flex flex-1 items-center justify-center gap-2 border border-ink/20 px-3 py-2.5 text-[10px] transition-colors hover:border-ink hover:bg-ink hover:text-paper"
+        (click)="addToCart()"
+      >
+        Adicionar <span aria-hidden="true">+</span>
+      </button>
+    </div>
+  </div>
+</article>

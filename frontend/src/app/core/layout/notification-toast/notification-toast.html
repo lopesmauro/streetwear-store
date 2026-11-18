@@ -1,0 +1,11 @@
+<div
+  class="fixed right-5 bottom-5 left-5 z-50 mx-auto w-fit max-w-[calc(100%-2.5rem)]"
+  role="status"
+  aria-live="polite"
+>
+  @if (notifications.message()) {
+    <p class="border border-ink/10 bg-ink px-6 py-4 text-sm text-white shadow-xl">
+      {{ notifications.message() }}
+    </p>
+  }
+</div>

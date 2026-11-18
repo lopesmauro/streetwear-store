@@ -1,0 +1,26 @@
+.brand {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 44px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -4px;
+}
+.nav-link {
+  transition: color 180ms;
+  &:hover {
+    color: var(--color-accent);
+  }
+}
+.counter {
+  position: absolute;
+  top: 0;
+  right: -3px;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: white;
+  font-size: 9px;
+}

@@ -1,0 +1,143 @@
+<main id="conteudo">
+  <section
+    class="hero-grid relative grid overflow-hidden lg:grid-cols-[0.9fr_1.1fr]"
+    aria-labelledby="hero-title"
+  >
+    <div
+      class="hero-copy relative flex flex-col justify-center bg-accent px-6 py-16 sm:px-12 lg:py-22"
+    >
+      <div class="mb-8 flex items-center gap-3">
+        <span class="h-px w-7 bg-white/40"></span>
+        <span class="eyebrow text-white/60">DROP 01 / CONCRETO / 2026</span>
+      </div>
+      <h1
+        id="hero-title"
+        class="font-display text-[clamp(4.5rem,7.8vw,8rem)] leading-[0.88] font-bold tracking-[-0.065em] text-white uppercase"
+      >
+        A rua é<br />sua.
+      </h1>
+      <p class="mt-7 max-w-74 text-sm leading-7 text-white/50">
+        Shapes amplos. Presença de sobra.<br />Streetwear para ocupar a cidade do seu jeito.
+      </p>
+      <a
+        routerLink="/produtos"
+        class="mt-9 flex w-fit items-center gap-10 py-4 text-xs font-semibold text-white"
+        >Explore o drop <app-icon name="arrow"
+      /></a>
+    </div>
+    <div class="relative min-h-110 overflow-hidden bg-[#b0a391]">
+      <img
+        class="absolute inset-0 h-full w-full object-cover object-[center_40%]"
+        src="images/streetwear-campaign.webp"
+        alt="Modelos com peças streetwear em uma escadaria de concreto"
+        fetchpriority="high"
+        width="1448"
+        height="1086"
+      />
+      <div
+        class="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent"
+      ></div>
+    </div>
+  </section>
+
+  <div class="border-b border-ink/10">
+    <div class="page-width grid grid-cols-1 gap-5 py-6 text-[11px] sm:grid-cols-3 sm:gap-8">
+      <div class="flex items-center justify-center gap-3">
+        <app-icon name="truck" />
+        <p>Frete grátis <span class="text-muted">acima de R$ 299</span></p>
+      </div>
+      <div class="flex items-center justify-center gap-3 sm:border-x sm:border-ink/15">
+        <app-icon name="return" />
+        <p>Primeira troca <span class="text-muted">por nossa conta</span></p>
+      </div>
+      <div class="flex items-center justify-center gap-3">
+        <app-icon name="sun" />
+        <p>Modelagem unissex <span class="text-muted">atitude sem rótulos</span></p>
+      </div>
+    </div>
+  </div>
+
+  <section class="page-width py-16 sm:py-22" aria-labelledby="featured-title">
+    <div class="flex flex-wrap items-end justify-between gap-5">
+      <div>
+        <p class="eyebrow mb-3 text-accent">SELEÇÃO DO DROP</p>
+        <h2 id="featured-title" class="section-title">Em rotação.</h2>
+      </div>
+      <a
+        routerLink="/produtos"
+        class="flex items-center gap-6 border-b border-ink pb-2 text-xs font-semibold"
+        >Ver todos <app-icon name="arrow"
+      /></a>
+    </div>
+    <div class="mt-10 grid grid-cols-2 gap-x-4 gap-y-9 lg:grid-cols-4 lg:gap-x-6">
+      @for (product of products.products; track product.id) {
+        <app-product-card [product]="product" />
+      }
+    </div>
+  </section>
+
+  <section class="page-width pb-18" aria-labelledby="edit-title">
+    <div class="grid overflow-hidden bg-accent text-paper md:grid-cols-2">
+      <div class="relative min-h-80 md:min-h-110">
+        <img
+          src="images/hoodie.webp"
+          alt="Moletom oversized verde Forest"
+          class="absolute inset-0 h-full w-full bg-[#e7e7e2] object-contain"
+          width="1086"
+          height="1448"
+          loading="lazy"
+        />
+      </div>
+      <div class="flex flex-col items-start justify-center px-8 py-12 sm:px-14 lg:px-20">
+        <h2 id="edit-title" class="section-title">Volume no fit.<br />Atitude no corre.</h2>
+        <p class="mt-6 max-w-70 text-sm leading-7 text-paper/70">
+          Ombros caídos, algodão encorpado e acabamento lavado. O Forest é a camada que acompanha
+          seu ritmo, do asfalto ao fim do dia.
+        </p>
+        <a
+          [routerLink]="['/produtos', 'moletom-oversized-forest']"
+          class="mt-8 flex items-center gap-8 border-b border-paper pb-2 text-xs font-semibold"
+          >Conheça o Forest <app-icon name="arrow"
+        /></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-accent py-14" aria-labelledby="newsletter-title">
+    <div class="page-width grid items-center gap-8 md:grid-cols-2 md:gap-16">
+      <div>
+        <h2 id="newsletter-title" class="font-display text-3xl tracking-[-0.04em] text-white">
+          O próximo drop começa aqui.
+        </h2>
+        <p class="mt-3 text-xs leading-6 text-white/50">
+          Novos drops, referências e os bastidores da forma.
+        </p>
+      </div>
+      @if (newsletterSent()) {
+        <div role="status" class="flex items-start gap-3 border-b border-white/30 py-4 text-white">
+          <app-icon name="check" />
+          <p class="text-sm">
+            Obrigada pelo interesse!
+            <span class="block text-xs text-white/50">Formulário demonstrativo.</span>
+          </p>
+        </div>
+      } @else {
+        <form
+          (submit)="subscribe($event)"
+          class="flex items-center gap-3 border-b border-white/30 pb-3"
+        >
+          <input
+            type="email"
+            required
+            aria-label="Seu melhor e-mail"
+            placeholder="Seu melhor e-mail"
+            class="w-full min-w-0 py-2 text-sm text-white placeholder:text-white/50"
+          />
+          <button type="submit" aria-label="Cadastrar e-mail" class="icon-button text-white">
+            <app-icon name="arrow" />
+          </button>
+        </form>
+      }
+    </div>
+  </section>
+</main>

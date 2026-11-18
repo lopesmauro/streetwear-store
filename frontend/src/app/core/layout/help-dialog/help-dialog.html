@@ -1,0 +1,17 @@
+<dialog
+  #dialog
+  class="max-w-[min(90vw,460px)] border-0 bg-paper p-8 text-ink"
+  aria-labelledby="help-title"
+  (click)="$event.target === dialog && close()"
+>
+  <div class="flex items-center justify-between gap-8">
+    <h2 id="help-title" class="text-xl">Sobre esta loja</h2>
+    <button class="icon-button" aria-label="Fechar ajuda" (click)="close()">
+      <app-icon name="close" />
+    </button>
+  </div>
+  <p class="mt-5 text-sm leading-7 text-muted">
+    A forma é uma loja fictícia. Produtos, preços e condições de entrega são ilustrativos.
+  </p>
+  <button class="mt-6 border-b border-ink pb-1 text-sm" (click)="close()">Entendi</button>
+</dialog>

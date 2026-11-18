@@ -1,0 +1,97 @@
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+body {
+  margin: 0;
+  background: #f8f7f3;
+  color: #292922;
+  font-family: 'Manrope', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.page-width {
+  width: min(100% - 3rem, 1320px);
+  margin-inline: auto;
+}
+.eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+}
+.section-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(2rem, 3.3vw, 3.3rem);
+  line-height: 1.12;
+  letter-spacing: -0.055em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.icon-button {
+  position: relative;
+  display: inline-flex;
+  min-width: 40px;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  transition: color 180ms;
+  &:hover {
+    color: var(--color-accent);
+  }
+}
+.hero-copy {
+  padding-left: max(1.5rem, calc((100vw - 1320px) / 2));
+}
+button,
+a,
+input,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+button,
+select {
+  cursor: pointer;
+}
+button,
+a,
+input,
+select {
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 5px;
+  }
+}
+::selection {
+  background: var(--color-accent);
+  color: white;
+}
+dialog {
+  margin: auto;
+}
+dialog::backdrop {
+  background: rgb(20 20 15 / 45%);
+  backdrop-filter: blur(4px);
+}
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+@media (min-width: 1024px) {
+  .hero-grid {
+    min-height: 620px;
+  }
+}
+@media (max-width: 639px) {
+  .page-width {
+    width: calc(100% - 2rem);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

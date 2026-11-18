@@ -1,0 +1,94 @@
+<div class="bg-ink px-4 py-2.5 text-center text-[10px] tracking-[0.13em] text-white sm:text-xs">
+  UM BOM COMEÇO: FRETE GRÁTIS A PARTIR DE R$ 299
+  <span class="mx-3 hidden sm:inline">·</span>
+  <span class="hidden sm:inline">PRIMEIRA TROCA GRÁTIS</span>
+</div>
+
+<header class="sticky top-0 z-30 border-b border-ink/10 bg-paper/95 backdrop-blur-md">
+  <div class="page-width flex h-22 items-center justify-between gap-6">
+    <a routerLink="/" class="brand" aria-label="forma — início"
+      >forma<span class="text-accent">.</span></a
+    >
+    <nav
+      aria-label="Navegação principal"
+      class="hidden items-center gap-8 text-xs font-semibold lg:flex"
+    >
+      <a routerLink="/produtos" routerLinkActive="text-accent" class="nav-link">Produtos</a>
+      @for (category of categories; track category) {
+        <a routerLink="/produtos" [queryParams]="{ categoria: category }" class="nav-link">{{
+          category
+        }}</a>
+      }
+      <a routerLink="/favoritos" routerLinkActive="text-accent" class="nav-link">Favoritos</a>
+    </nav>
+    <div class="flex items-center gap-1 sm:gap-3">
+      <button
+        class="icon-button"
+        aria-label="Buscar produtos"
+        [attr.aria-expanded]="searchOpen()"
+        aria-controls="busca"
+        (click)="searchOpen.set(!searchOpen())"
+      >
+        <app-icon name="search" />
+      </button>
+      <a routerLink="/favoritos" class="icon-button hidden sm:flex" aria-label="Ver favoritos">
+        <app-icon name="heart" />
+        @if (favorites.ids().length) {
+          <span class="counter">{{ favorites.ids().length }}</span>
+        }
+      </a>
+      <button class="icon-button gap-2" aria-label="Abrir sacola" (click)="openCart.emit()">
+        <app-icon name="bag" /><span class="text-xs">{{ cart.count() }}</span>
+      </button>
+      <button
+        class="icon-button lg:hidden"
+        aria-label="Abrir menu"
+        [attr.aria-expanded]="menuOpen()"
+        aria-controls="menu-mobile"
+        (click)="menuOpen.set(!menuOpen())"
+      >
+        <app-icon [name]="menuOpen() ? 'close' : 'menu'" />
+      </button>
+    </div>
+  </div>
+
+  @if (menuOpen()) {
+    <nav
+      id="menu-mobile"
+      aria-label="Navegação móvel"
+      class="page-width grid gap-5 border-t border-ink/10 py-6 text-sm lg:hidden"
+    >
+      <a routerLink="/produtos" (click)="menuOpen.set(false)">Todos os produtos</a>
+      @for (category of categories; track category) {
+        <a
+          routerLink="/produtos"
+          [queryParams]="{ categoria: category }"
+          (click)="menuOpen.set(false)"
+          >{{ category }}</a
+        >
+      }
+      <a routerLink="/favoritos" (click)="menuOpen.set(false)">Meus favoritos</a>
+    </nav>
+  }
+
+  @if (searchOpen()) {
+    <form
+      id="busca"
+      role="search"
+      class="page-width flex items-center gap-4 border-t border-ink/10 py-4"
+      (submit)="search($event, searchInput.value)"
+    >
+      <app-icon name="search" />
+      <input
+        #searchInput
+        class="min-w-0 flex-1 bg-transparent py-2 text-sm"
+        type="search"
+        aria-label="Buscar na coleção"
+        placeholder="O que você está procurando?"
+      />
+      <button type="submit" class="text-sm font-semibold">
+        Buscar <span aria-hidden="true">→</span>
+      </button>
+    </form>
+  }
+</header>

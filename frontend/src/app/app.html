@@ -1,0 +1,12 @@
+<a
+  class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-paper focus:p-4"
+  href="#conteudo"
+  >Pular para o conteúdo</a
+>
+
+<app-cart-drawer #cart />
+<app-help-dialog #help />
+<app-header (openCart)="cart.open()" />
+<router-outlet />
+<app-footer (openHelp)="help.open()" />
+<app-notification-toast />

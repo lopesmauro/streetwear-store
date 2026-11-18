@@ -1,0 +1,66 @@
+<main id="conteudo" class="page-width min-h-[65vh] py-12 sm:py-18">
+  <div class="grid gap-10 lg:grid-cols-[240px_1fr] lg:gap-16">
+    <aside>
+      <p class="eyebrow text-accent">DROP 01</p>
+      <h1 class="section-title mt-3">Produtos.</h1>
+      <p class="mt-4 max-w-xs text-sm leading-6 text-muted">
+        Explore a coleção completa e encontre sua forma.
+      </p>
+      <div class="mt-8 border-t border-ink/15 pt-6">
+        <p class="mb-4 text-[10px] font-semibold tracking-widest uppercase">Filtrar por tipo</p>
+        <div class="grid gap-1" aria-label="Filtrar produtos">
+          @for (item of categories; track item) {
+            <button
+              class="flex items-center justify-between py-2 text-left text-sm text-muted transition-colors hover:text-ink"
+              [class.font-semibold]="category() === item"
+              [class.text-ink]="category() === item"
+              [attr.aria-pressed]="category() === item"
+              (click)="selectCategory(item)"
+            >
+              {{ item }}
+              @if (category() === item) {
+                <span class="size-1.5 rounded-full bg-accent"></span>
+              }
+            </button>
+          }
+        </div>
+      </div>
+    </aside>
+
+    <section aria-labelledby="results-title">
+      <div class="flex flex-wrap items-end justify-between gap-5 border-b border-ink/15 pb-5">
+        <div>
+          <h2 id="results-title" class="text-lg font-semibold">{{ category() }}</h2>
+          <p class="mt-1 text-xs text-muted" aria-live="polite">
+            {{ visibleProducts().length }} peças
+          </p>
+        </div>
+        <label class="flex w-full max-w-xs items-center gap-3 border-b border-ink/30 pb-2">
+          <app-icon name="search" />
+          <span class="sr-only">Buscar produtos</span>
+          <input
+            type="search"
+            class="min-w-0 flex-1 bg-transparent text-xs"
+            placeholder="Buscar na coleção"
+            [value]="query()"
+            (input)="search($any($event.target).value)"
+          />
+        </label>
+      </div>
+      <div class="mt-8 grid grid-cols-2 gap-x-4 gap-y-10 xl:grid-cols-3 xl:gap-x-6">
+        @for (product of visibleProducts(); track product.id) {
+          <app-product-card [product]="product" />
+        } @empty {
+          <div class="col-span-full py-20 text-center">
+            <app-icon name="search" />
+            <h3 class="mt-4 text-lg">Nenhuma peça por aqui.</h3>
+            <p class="mt-2 text-sm text-muted">Experimente outra busca ou categoria.</p>
+            <button class="mt-6 border-b border-ink pb-1 text-xs" (click)="selectCategory('Todos')">
+              Ver todas as peças
+            </button>
+          </div>
+        }
+      </div>
+    </section>
+  </div>
+</main>
